@@ -1,4 +1,4 @@
-var FILL_ME_IN = 'Fill me in.';
+var test = 'Yay team';
 
 var validStrings, invalidStrings, // used for stringifyJSON and parseJSON specs
   weirdObjects; // used for stringifyJSON spec
