@@ -6,22 +6,33 @@
 // But instead we're going to implement it from scratch:
 
 // You should use document.body, element.childNodes, and element.classList
+// element.classList is a list as a space delimited string
 
 var getElementsByClassName = function(className) {
-  // input: array
-  // output: array of elements that have the class names
-  // for each string in the array,
-    // if array index contains className,
-      // push that index to resultArray
-  var nodes = document.body;
-  var resultArray = [];
-
-  for (var i = 0; i < nodes.length; i++) {
-    if (nodes[i].classList.contains(className)) {
-      resultArray.push(nodes[i]);
+  // input: string
+  // output: array of strings (elements) that have the class names
+    // if document.body.classList contains className,
+      // push  to resultArray
+  var resultArray = []; // this is our stack
+  
+  var classNameFinder = function(node) {
+    // if the node in question contains className,
+      // push node to result array
+    if (node.classList && node.classList.contains(className)) {
+      resultArray.push(node);
     }
-    
+    // RECURSE: if node has children
+      //for each child, we need to recurse
+    if (node.childNodes) {
+      node.childNodes.forEach(function(child) {
+        classNameFinder(child);
+      });
+    }
   }
+
+  classNameFinder(document.body);
 
   return resultArray;
 };
+
+// getElementsByClassName('targetClassName');
